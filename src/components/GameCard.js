@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './GameCard.css';
 
-const GameCard = ({ game }) => {
+const GameCard = ({ game, showDiscounts = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
   
@@ -13,6 +14,9 @@ const GameCard = ({ game }) => {
     year: game?.year || '2023',
     platforms: game?.platforms || ['PC', 'PS5'],
     rating: game?.rating || (Math.random() * 2 + 3).toFixed(1), // Random between 3.0 and 5.0
+    price: game?.price || '$59.99',
+    originalPrice: game?.originalPrice,
+    discountPercent: game?.discountPercent
   };
 
   const handleFavoriteClick = (e) => {
@@ -46,7 +50,7 @@ const GameCard = ({ game }) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="game-card-inner">
-        <a href={`/game/${gameData.id}`} className="game-card-link">
+        <Link to={`/game/${gameData.id}`} className="game-card-link">
           <div className="game-card-image-container">
             <img 
               src={gameData.cover} 
@@ -54,6 +58,10 @@ const GameCard = ({ game }) => {
               className="game-card-image"
             />
             <div className="game-card-badge">{gameData.year}</div>
+            
+            {showDiscounts && gameData.discountPercent && (
+              <div className="discount-badge">-{gameData.discountPercent}%</div>
+            )}
             
             <div className={`game-card-overlay ${isHovered ? 'visible' : ''}`}>
               <div className="game-card-platforms">
@@ -69,14 +77,27 @@ const GameCard = ({ game }) => {
           <div className="game-card-content">
             <h3 className="game-card-title">{gameData.title}</h3>
             
-            <div className="game-card-rating">
-              <div className="stars-container">
-                {renderStars()}
+            <div className="game-card-details">
+              <div className="game-card-rating">
+                <div className="stars-container">
+                  {renderStars()}
+                </div>
+                <span className="rating-value">{gameData.rating}</span>
               </div>
-              <span className="rating-value">{gameData.rating}</span>
+              
+              {(gameData.price || gameData.originalPrice) && (
+                <div className="game-card-price">
+                  {showDiscounts && gameData.originalPrice && (
+                    <span className="original-price">{gameData.originalPrice}</span>
+                  )}
+                  <span className={`current-price ${showDiscounts && gameData.discountPercent ? 'discounted' : ''}`}>
+                    {gameData.price}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
-        </a>
+        </Link>
         
         <button 
           className={`favorite-btn ${isFavorite ? 'active' : ''}`}
@@ -92,4 +113,4 @@ const GameCard = ({ game }) => {
   );
 };
 
-export default GameCard; 
+export default GameCard;

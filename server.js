@@ -9,7 +9,7 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 4560;
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 const REGION = process.env.REGION || 'us';
 const CURRENCY = process.env.CURRENCY || '1';  // Default is USD (1), INR is 24

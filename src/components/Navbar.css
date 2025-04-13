@@ -239,3 +239,134 @@
     padding: 2rem;
   }
 } 
+/* Add these styles to your existing Navbar.css */
+
+.search-bar {
+  position: relative;
+}
+
+.search-bar form {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+}
+
+.search-bar input {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: none;
+  border-radius: 24px;
+  padding: 0.6rem 1rem 0.6rem 2.5rem;
+  color: white;
+  width: 240px;
+  transition: all 0.3s;
+  font-size: 0.9rem;
+}
+
+.search-bar input:focus {
+  outline: none;
+  background-color: rgba(255, 255, 255, 0.15);
+  width: 280px;
+  box-shadow: 0 0 0 2px rgba(138, 102, 255, 0.3);
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #8a66ff;
+  width: 18px;
+  height: 18px;
+  pointer-events: none;
+}
+
+.search-icon.searching {
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.search-results {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  width: 350px;
+  background-color: #151a28;
+  border-radius: 12px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.search-results-list {
+  max-height: 350px;
+  overflow-y: auto;
+}
+
+.search-result-item {
+  display: flex;
+  align-items: center;
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-result-item:hover {
+  background-color: rgba(138, 102, 255, 0.1);
+}
+
+.result-image {
+  width: 50px;
+  height: 50px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-right: 12px;
+}
+
+.result-info h4 {
+  margin: 0 0 5px 0;
+  font-size: 0.95rem;
+  color: white;
+}
+
+.result-info p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #a0aec0;
+}
+
+.view-all-results {
+  display: block;
+  text-align: center;
+  padding: 10px;
+  background-color: rgba(138, 102, 255, 0.1);
+  color: #8a66ff;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.view-all-results:hover {
+  background-color: rgba(138, 102, 255, 0.2);
+}
+
+.no-results {
+  padding: 15px;
+  text-align: center;
+  color: #a0aec0;
+  font-size: 0.9rem;
+}

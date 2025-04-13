@@ -9,13 +9,17 @@ const HomePage = () => {
   const [trendingGames, setTrendingGames] = useState([]);
   const [topRatedGames, setTopRatedGames] = useState([]);
   const [newReleases, setNewReleases] = useState([]);
+  const [specialsGames, setSpecialsGames] = useState([]);
+  const [horrorGames, setHorrorGames] = useState([]);
   
   // Section-specific loading states
   const [loadingStates, setLoadingStates] = useState({
     featured: true,
     trending: true,
     topRated: true,
-    newReleases: true
+    newReleases: true,
+    specials: true,
+    horror: true
   });
   
   // Section-specific error states
@@ -23,7 +27,9 @@ const HomePage = () => {
     featured: null,
     trending: null,
     topRated: null,
-    newReleases: null
+    newReleases: null,
+    specials: null,
+    horror: null
   });
 
   // Update loading state helper
@@ -34,6 +40,39 @@ const HomePage = () => {
   // Update error state helper
   const updateErrorState = (section, error) => {
     setErrorStates(prev => ({ ...prev, [section]: error }));
+  };
+
+  // Generate specials games by applying a discount to existing games
+  const generateSpecials = (games) => {
+    if (!games || games.length === 0) return [];
+    
+    // Create a deep copy and modify to simulate special offers
+    return games.slice(0, 6).map(game => {
+      // Create a new object with all properties from the original game
+      const specialGame = { ...game };
+      
+      // Apply a random discount between 30% and 75%
+      const discountPercent = Math.floor(Math.random() * 46) + 30;
+      specialGame.discountPercent = discountPercent;
+      
+      // If the game has a numeric price, calculate discounted price
+      if (specialGame.price && !specialGame.price.includes('Free')) {
+        const currencySymbol = specialGame.price.startsWith('$') ? '$' : 
+                               specialGame.price.startsWith('€') ? '€' : 
+                               specialGame.price.startsWith('£') ? '£' : 
+                               specialGame.price.charAt(0);
+        
+        // Extract numeric price and apply discount
+        const originalPrice = parseFloat(specialGame.price.replace(/[^0-9.]/g, ''));
+        if (!isNaN(originalPrice)) {
+          const discountedPrice = originalPrice * (1 - discountPercent / 100);
+          specialGame.originalPrice = specialGame.price;
+          specialGame.price = `${currencySymbol}${discountedPrice.toFixed(2)}`;
+        }
+      }
+      
+      return specialGame;
+    });
   };
 
   useEffect(() => {
@@ -60,6 +99,10 @@ const HomePage = () => {
         const trendingData = await SteamApiService.getTrendingGames();
         if (trendingData && trendingData.length > 0) {
           setTrendingGames(trendingData);
+          
+          // Generate specials based on trending games
+          setSpecialsGames(generateSpecials(trendingData));
+          updateLoadingState('specials', false);
         } else {
           updateErrorState('trending', "No trending games available");
         }
@@ -109,13 +152,33 @@ const HomePage = () => {
         updateLoadingState('newReleases', false);
       }
     };
+    
+    // Fetch horror games
+    const fetchHorrorGames = async () => {
+      updateLoadingState('horror', true);
+      try {
+        const horrorData = await SteamApiService.searchGames('horror');
+        if (horrorData && horrorData.length > 0) {
+          setHorrorGames(horrorData);
+        } else {
+          updateErrorState('horror', "No horror games available");
+        }
+      } catch (err) {
+        console.error("Error fetching horror games:", err.message);
+        updateErrorState('horror', `Failed to load horror games: ${err.message}`);
+        setHorrorGames([]);
+      } finally {
+        updateLoadingState('horror', false);
+      }
+    };
 
     // Fetch all data in parallel
     Promise.all([
       fetchFeaturedGame().catch(err => console.error(err)),
       fetchTrendingGames().catch(err => console.error(err)),
       fetchTopRatedGames().catch(err => console.error(err)),
-      fetchNewReleases().catch(err => console.error(err))
+      fetchNewReleases().catch(err => console.error(err)),
+      fetchHorrorGames().catch(err => console.error(err))
     ]);
   }, []);
 
@@ -157,6 +220,24 @@ const HomePage = () => {
           )}
           
           <section className="content">
+            {/* Specials/Deals Section */}
+            {loadingStates.specials ? (
+              <div className="loading-section">Loading special offers...</div>
+            ) : errorStates.specials ? (
+              <div className="error-section">
+                <h3>Error: Special Offers</h3>
+                <p>{errorStates.specials}</p>
+              </div>
+            ) : (
+              <div className="special-offers-section">
+                <GameCarousel 
+                  title="Special Offers" 
+                  games={specialsGames} 
+                  showDiscounts={true}
+                />
+              </div>
+            )}
+            
             {loadingStates.trending ? (
               <div className="loading-section">Loading trending games...</div>
             ) : errorStates.trending ? (
@@ -198,6 +279,20 @@ const HomePage = () => {
                 games={newReleases} 
               />
             )}
+            
+            {loadingStates.horror ? (
+              <div className="loading-section">Loading horror games...</div>
+            ) : errorStates.horror ? (
+              <div className="error-section">
+                <h3>Error: Horror Games</h3>
+                <p>{errorStates.horror}</p>
+              </div>
+            ) : (
+              <GameCarousel 
+                title="Horror Games" 
+                games={horrorGames} 
+              />
+            )}
           </section>
         </>
       )}
@@ -205,4 +300,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage; 
+export default HomePage;

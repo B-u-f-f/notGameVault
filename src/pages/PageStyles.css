@@ -907,3 +907,531 @@
   max-width: 1400px;
   margin: 0 auto;
 } 
+/* Add these styles to your PageStyles.css file */
+
+.about-container {
+  padding-top: 80px;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 80px 5% 50px;
+}
+
+.about-hero {
+  position: relative;
+  background-image: linear-gradient(to right, rgba(10, 14, 23, 0.9), rgba(10, 14, 23, 0.8)), 
+                    url('https://images.unsplash.com/photo-1511512578047-dfb367046420?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80');
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+  padding: 4rem 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  overflow: hidden;
+}
+
+.about-hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  margin-bottom: 1rem;
+  background: linear-gradient(to right, #fff, #8a66ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.about-hero p {
+  font-size: 1.2rem;
+  color: #e2e8f0;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.about-section, .about-tech, .about-team {
+  margin-bottom: 3rem;
+  background-color: rgba(16, 24, 38, 0.6);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.about-section h2, .about-tech h2, .about-team h2, .about-features h2 {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  color: #ffffff;
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.about-section h2::after, .about-tech h2::after, .about-team h2::after, .about-features h2::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 60px;
+  height: 3px;
+  background-color: #8a66ff;
+  border-radius: 10px;
+}
+
+.about-section p, .about-tech p, .about-team p {
+  color: #e2e8f0;
+  line-height: 1.7;
+  margin-bottom: 1.2rem;
+  font-size: 1.05rem;
+}
+
+.about-features {
+  margin-bottom: 3rem;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  background-color: rgba(16, 24, 38, 0.6);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+  font-size: 2rem;
+  color: #8a66ff;
+  margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.feature-card p {
+  color: #a0aec0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+.about-cta {
+  background-color: rgba(138, 102, 255, 0.1);
+  border-radius: 16px;
+  padding: 3rem 2rem;
+  text-align: center;
+  border: 1px solid rgba(138, 102, 255, 0.3);
+  margin-bottom: 2rem;
+}
+
+.about-cta h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.about-cta p {
+  color: #e2e8f0;
+  margin-bottom: 2rem;
+  font-size: 1.1rem;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.btn-primary, .btn-secondary {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  display: inline-block;
+}
+
+.btn-primary {
+  background-color: #8a66ff;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #7854e8;
+  transform: translateY(-3px);
+  box-shadow: 0 7px 15px rgba(138, 102, 255, 0.3);
+}
+
+.btn-secondary {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-3px);
+  box-shadow: 0 7px 15px rgba(0, 0, 0, 0.1);
+}
+
+@media (max-width: 768px) {
+  .about-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .about-hero {
+    padding: 3rem 1.5rem;
+  }
+  
+  .about-section h2, .about-tech h2, .about-team h2, .about-features h2, .about-cta h2 {
+    font-size: 1.8rem;
+  }
+  
+  .feature-card {
+    padding: 1.2rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .about-hero h1 {
+    font-size: 2rem;
+  }
+  
+  .about-hero p {
+    font-size: 1rem;
+  }
+  
+  .about-section, .about-tech, .about-team {
+    padding: 1.5rem;
+  }
+  
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+}
+/* Add these styles to your PageStyles.css file */
+
+.search-results-page {
+  padding: 120px 5% 40px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.search-header {
+  margin-bottom: 2rem;
+}
+
+.search-title {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.search-title-icon {
+  font-size: 1.5rem;
+  color: #8a66ff;
+}
+
+.search-title h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.search-meta {
+  color: #a0aec0;
+  font-size: 1rem;
+}
+
+.results-count {
+  font-style: italic;
+}
+
+.search-container {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 2rem;
+}
+
+.search-filters {
+  background-color: rgba(16, 24, 38, 0.6);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  align-self: start;
+  position: sticky;
+  top: 100px;
+}
+
+.filter-section {
+  margin-bottom: 1.5rem;
+}
+
+.filter-section h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.filter-select {
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.6rem;
+  border-radius: 6px;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: #8a66ff;
+}
+
+.applied-filters h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: #ffffff;
+}
+
+.filter-tags {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.filter-tag {
+  background-color: rgba(138, 102, 255, 0.1);
+  border-radius: 6px;
+  padding: 0.5rem 0.75rem;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid rgba(138, 102, 255, 0.2);
+}
+
+.filter-label {
+  color: #a0aec0;
+  font-size: 0.85rem;
+}
+
+.filter-value {
+  color: #ffffff;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.search-results-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.search-result-card {
+  background-color: rgba(16, 24, 38, 0.6);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  display: flex;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.search-result-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.result-image-container {
+  flex: 0 0 180px;
+  position: relative;
+}
+
+.result-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.result-details {
+  flex: 1;
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.result-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #ffffff;
+}
+
+.result-meta {
+  display: flex;
+  gap: 1rem;
+  color: #a0aec0;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+}
+
+.result-year {
+  font-weight: 500;
+}
+
+.result-description {
+  color: #e2e8f0;
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  flex: 1;
+}
+
+.result-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.result-rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.stars-container {
+  display: flex;
+}
+
+.star {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.star.full {
+  color: #ffc107;
+}
+
+.star.half {
+  position: relative;
+  color: #333;
+}
+
+.star.half::before {
+  content: '★';
+  position: absolute;
+  color: #ffc107;
+  width: 50%;
+  overflow: hidden;
+}
+
+.star.empty {
+  color: #333;
+}
+
+.rating-value {
+  font-weight: 700;
+  color: #ffc107;
+}
+
+.view-game-btn {
+  background-color: #8a66ff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 0.6rem 1.2rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  text-decoration: none;
+  display: inline-block;
+}
+
+.view-game-btn:hover {
+  background-color: #7854e8;
+  transform: translateY(-2px);
+}
+
+.no-results {
+  background-color: rgba(16, 24, 38, 0.6);
+  border-radius: 12px;
+  padding: 3rem;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.no-results h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #ffffff;
+}
+
+.no-results p {
+  color: #a0aec0;
+  margin-bottom: 0.5rem;
+}
+
+@media (max-width: 992px) {
+  .search-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .search-filters {
+    position: static;
+    margin-bottom: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .search-results-page {
+    padding: 100px 5% 40px;
+  }
+  
+  .search-title h1 {
+    font-size: 1.5rem;
+  }
+  
+  .search-result-card {
+    flex-direction: column;
+  }
+  
+  .result-image-container {
+    flex: 0 0 200px;
+  }
+}
+
+@media (max-width: 576px) {
+  .result-footer {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .view-game-btn {
+    width: 100%;
+    text-align: center;
+  }
+}

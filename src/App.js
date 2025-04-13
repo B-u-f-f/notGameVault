@@ -1,15 +1,14 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import GameCarousel from './components/GameCarousel';
 import Footer from './components/Footer';
-import HomePage from './pages/HomePage.js';
-import TierListsPage from './pages/TierListsPage.js';
-import AboutPage from './pages/AboutPage.js';
-import LoginPage from './pages/LoginPage.js';
-import SignupPage from './pages/SignupPage.js';
-import GameDetailPage from './pages/GameDetailPage.js';
+import HomePage from './pages/HomePage';
+import TierListsPage from './pages/TierListsPage';
+import AboutPage from './pages/AboutPage';
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import GameDetailPage from './pages/GameDetailPage';
+import SearchResultsPage from './pages/SearchResultsPage';
 import './App.css';
 
 function App() {
@@ -24,6 +23,7 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
           <Route path="/game/:gameId" element={<GameDetailPage />} />
+          <Route path="/search" element={<SearchResultsPage />} />
         </Routes>
         <Footer />
       </div>
@@ -31,4 +31,4 @@ function App() {
   );
 }
 
-export default App; 
+export default App;
