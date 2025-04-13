@@ -1,20 +1,13 @@
 // Define API base URL to automatically detect server port
 // In production, this should be your server's domain
 const getApiBaseUrl = () => {
-  // Parse port from window.location if in browser
-  const port = window.location.port;
-  
-  // If frontend runs on port 3001 (development), backend is likely on 8080
-  if (port === '3001') {
-    return 'http://localhost:8080/api';
-  }
-  
-  // Otherwise use the same host and port as the frontend (for production)
-  return `${window.location.protocol}//${window.location.hostname}:${port}/api`;
+  // Use the absolute URL to the server
+  return 'http://localhost:4560/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();
 console.log('Using API base URL:', API_BASE_URL);
+
 
 // Fetch with timeout and retry helper
 const fetchWithRetry = async (url, options = {}, timeout = 5000, retries = 2) => {
@@ -252,4 +245,4 @@ const SteamApiService = {
   }
 };
 
-export default SteamApiService; 
+export default SteamApiService;

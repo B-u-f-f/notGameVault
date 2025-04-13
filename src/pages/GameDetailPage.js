@@ -279,7 +279,7 @@ const GameDetailPage = () => {
             <span className="game-detail-platforms">{game.platforms.join(', ')}</span>
             <span className="divider">•</span>
             <div className="game-detail-rating">
-              <span className="star">★</span> {game.rating}/5
+              <span className="rating-value">{game.rating}</span>/5
             </div>
             {game.currentPlayers && (
               <>

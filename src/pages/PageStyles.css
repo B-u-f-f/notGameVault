@@ -1435,3 +1435,7 @@
     text-align: center;
   }
 }
+.rating-value {
+  font-weight: 700;
+  color: #ffc107;
+}

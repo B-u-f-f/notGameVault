@@ -36,13 +36,14 @@ const Hero = ({ game }) => {
             
             {gameData.rating && (
               <div className="meta-item rating">
-                <span className="star">★</span> {gameData.rating}
+                <span className="rating-value">{gameData.rating}</span>
+                <span className="rating-max">/5</span>
               </div>
             )}
             
-            {gameData.playerCount && (
+            {gameData.currentPlayers && (
               <span className="meta-item players">
-                <span className="player-count">{gameData.playerCount}</span> playing now
+                <span className="player-count">{new Intl.NumberFormat().format(gameData.currentPlayers)}</span> playing now
               </span>
             )}
           </div>

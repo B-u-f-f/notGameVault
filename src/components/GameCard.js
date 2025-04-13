@@ -25,24 +25,6 @@ const GameCard = ({ game, showDiscounts = false }) => {
     setIsFavorite(!isFavorite);
   };
 
-  // Generate stars based on rating
-  const renderStars = () => {
-    const stars = [];
-    const rating = parseFloat(gameData.rating);
-    
-    for (let i = 1; i <= 5; i++) {
-      if (i <= Math.floor(rating)) {
-        stars.push(<span key={i} className="star full">★</span>);
-      } else if (i === Math.ceil(rating) && !Number.isInteger(rating)) {
-        stars.push(<span key={i} className="star half">★</span>);
-      } else {
-        stars.push(<span key={i} className="star empty">★</span>);
-      }
-    }
-    
-    return stars;
-  };
-
   return (
     <div 
       className="game-card"
@@ -79,10 +61,8 @@ const GameCard = ({ game, showDiscounts = false }) => {
             
             <div className="game-card-details">
               <div className="game-card-rating">
-                <div className="stars-container">
-                  {renderStars()}
-                </div>
-                <span className="rating-value">{gameData.rating}</span>
+                <span className="rating-value">{parseFloat(gameData.rating).toFixed(1)}</span>
+                <span className="rating-max">/5</span>
               </div>
               
               {(gameData.price || gameData.originalPrice) && (
