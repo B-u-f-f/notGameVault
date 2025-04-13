@@ -2,7 +2,7 @@
 // In production, this should be your server's domain
 const getApiBaseUrl = () => {
   // Use the absolute URL to the server
-  return 'http://localhost:4560/api';
+  return 'http://localhost:5560/api';
 };
 
 const API_BASE_URL = getApiBaseUrl();

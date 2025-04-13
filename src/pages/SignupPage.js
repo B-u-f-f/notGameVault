@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import './PageStyles.css';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaUser, FaLock, FaEnvelope, FaGoogle, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
+import './PageStyles.css';
 
 const SignupPage = () => {
   const [formData, setFormData] = useState({
@@ -13,6 +14,22 @@ const SignupPage = () => {
   });
 
   const [errors, setErrors] = useState({});
+  const [alertMessage, setAlertMessage] = useState(null);
+  
+  const { register, error, clearError, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+    
+    if (error) {
+      setAlertMessage(error);
+      clearError();
+    }
+  }, [isAuthenticated, error, navigate, clearError]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -28,6 +45,8 @@ const SignupPage = () => {
     // Validate username
     if (!formData.username.trim()) {
       newErrors.username = 'Username is required';
+    } else if (formData.username.length < 3) {
+      newErrors.username = 'Username must be at least 3 characters';
     }
     
     // Validate email
@@ -58,12 +77,16 @@ const SignupPage = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setAlertMessage(null);
     
     if (validateForm()) {
-      // Handle signup logic here - would connect to backend in a real app
-      console.log('Signup attempt with:', formData);
+      await register({
+        username: formData.username,
+        email: formData.email,
+        password: formData.password
+      });
     }
   };
 
@@ -74,6 +97,12 @@ const SignupPage = () => {
           <h1>Create Account</h1>
           <p>Join our community of gamers</p>
         </div>
+
+        {alertMessage && (
+          <div className="alert-message">
+            {alertMessage}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
@@ -181,4 +210,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage; 
+export default SignupPage;

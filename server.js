@@ -4,12 +4,16 @@ const cors = require('cors');
 const fs = require('fs');
 const axios = require('axios');
 const dotenv = require('dotenv');
+const connectDB = require('./config/db');  // Add MongoDB connection
 
 // Load environment variables
 dotenv.config();
 
+// Connect to MongoDB
+connectDB();
+
 const app = express();
-const PORT = process.env.PORT || 4560;
+const PORT = process.env.PORT || 5560;
 const STEAM_API_KEY = process.env.STEAM_API_KEY;
 const REGION = process.env.REGION || 'us';
 const CURRENCY = process.env.CURRENCY || '1';  // Default is USD (1), INR is 24
@@ -17,6 +21,18 @@ const CURRENCY = process.env.CURRENCY || '1';  // Default is USD (1), INR is 24
 // Validate Steam API key
 if (!STEAM_API_KEY || STEAM_API_KEY.length !== 32) {
   console.error('Invalid or missing Steam API key. Please check your .env file.');
+  process.exit(1);
+}
+
+// Validate MongoDB connection URI
+if (!process.env.MONGO_URI) {
+  console.error('Missing MongoDB URI. Please check your .env file.');
+  process.exit(1);
+}
+
+// Validate JWT secret
+if (!process.env.JWT_SECRET) {
+  console.error('Missing JWT secret. Please check your .env file.');
   process.exit(1);
 }
 

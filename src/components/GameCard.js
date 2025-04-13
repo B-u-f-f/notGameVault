@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
+import { useFavorites } from '../context/FavoritesContext';
 import './GameCard.css';
 
 const GameCard = ({ game, showDiscounts = false }) => {
   const [isHovered, setIsHovered] = useState(false);
-  const [isFavorite, setIsFavorite] = useState(false);
+  const { isAuthenticated } = useAuth();
+  const { isFavorite, addFavorite, removeFavorite } = useFavorites();
   
   // Default game data if not provided
   const gameData = {
@@ -19,10 +22,23 @@ const GameCard = ({ game, showDiscounts = false }) => {
     discountPercent: game?.discountPercent
   };
 
+  const favorite = isFavorite(gameData.id);
+
   const handleFavoriteClick = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsFavorite(!isFavorite);
+    
+    if (!isAuthenticated) {
+      // Redirect to login or show a prompt
+      alert('Please log in to add games to your favorites');
+      return;
+    }
+    
+    if (favorite) {
+      removeFavorite(gameData.id);
+    } else {
+      addFavorite(gameData);
+    }
   };
 
   return (
@@ -80,9 +96,9 @@ const GameCard = ({ game, showDiscounts = false }) => {
         </Link>
         
         <button 
-          className={`favorite-btn ${isFavorite ? 'active' : ''}`}
+          className={`favorite-btn ${favorite ? 'active' : ''}`}
           onClick={handleFavoriteClick}
-          aria-label={isFavorite ? "Remove from favorites" : "Add to favorites"}
+          aria-label={favorite ? "Remove from favorites" : "Add to favorites"}
         >
           <svg className="heart-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
             <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />

@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle, FaFacebook, FaTwitter, FaLock, FaUser } from 'react-icons/fa';
+import { useAuth } from '../context/AuthContext';
 import './PageStyles.css';
 
 const LoginPage = () => {
@@ -9,6 +10,22 @@ const LoginPage = () => {
     password: '',
     rememberMe: false
   });
+  const [alertMessage, setAlertMessage] = useState(null);
+  
+  const { login, error, clearError, isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  // Redirect if already authenticated
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+    
+    if (error) {
+      setAlertMessage(error);
+      clearError();
+    }
+  }, [isAuthenticated, error, navigate, clearError]);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -18,10 +35,21 @@ const LoginPage = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle login logic here - would connect to backend in a real app
-    console.log('Login attempt with:', formData);
+    setAlertMessage(null);
+    
+    // Validate form
+    if (!formData.email.trim() || !formData.password) {
+      setAlertMessage('Please enter both email and password');
+      return;
+    }
+    
+    // Login
+    await login({
+      email: formData.email,
+      password: formData.password
+    });
   };
 
   return (
@@ -31,6 +59,12 @@ const LoginPage = () => {
           <h1>Welcome Back</h1>
           <p>Log in to access your games, reviews, and more</p>
         </div>
+
+        {alertMessage && (
+          <div className="alert-message">
+            {alertMessage}
+          </div>
+        )}
 
         <form onSubmit={handleSubmit} className="auth-form">
           <div className="form-group">
@@ -110,4 +144,4 @@ const LoginPage = () => {
   );
 };
 
-export default LoginPage; 
+export default LoginPage;
